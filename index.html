@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,570 +8,289 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0D1B3E;
-    --blue: #1A3A8F;
-    --red: #C0272D;
-    --gold: #D4930A;
-    --gold-light: #FEF3C7;
-    --white: #FFFFFF;
-    --off: #F7F8FC;
-    --border: #E2E8F0;
-    --text: #1E293B;
-    --muted: #64748B;
-    --green: #166534;
-    --green-bg: #DCFCE7;
-    --amber: #92400E;
-    --amber-bg: #FEF3C7;
-    --blue-bg: #EFF6FF;
-    --red-bg: #FEF2F2;
-    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
-    --shadow-lg: 0 4px 24px rgba(0,0,0,.10);
-    --r: 10px;
+    --navy:#0D1B3E; --blue:#1A3A8F; --red:#C0272D; --gold:#D4930A;
+    --off:#F7F8FC; --border:#E2E8F0; --text:#1E293B; --muted:#64748B;
+    --green:#166534; --green-bg:#DCFCE7; --amber:#92400E; --amber-bg:#FEF3C7; --blue-bg:#EFF6FF;
+    --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04); --r:10px;
   }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--text);font-size:15px;line-height:1.6}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  /* ── Header ── */
+  header{background:var(--navy);padding:28px 40px;display:flex;align-items:center;gap:20px}
+  .logo{width:44px;height:44px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;color:#fff;font-size:20px;flex-shrink:0}
+  header h1{font-family:'DM Serif Display',serif;color:#fff;font-size:22px;font-weight:400;line-height:1.2}
+  header p{color:#94A3B8;font-size:13px;margin-top:2px}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--off);
-    color: var(--text);
-    font-size: 15px;
-    line-height: 1.6;
-  }
+  /* ── Page ── */
+  .page{max-width:1160px;margin:0 auto;padding:36px 24px 80px}
 
-  /* ── Header ─────────────────────────────────────────────────── */
-  header {
-    background: var(--navy);
-    padding: 28px 40px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .logo-mark {
-    width: 44px; height: 44px;
-    background: var(--red);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'DM Serif Display', serif;
-    color: white; font-size: 20px; font-weight: 400;
-    flex-shrink: 0;
-  }
-  header h1 {
-    font-family: 'DM Serif Display', serif;
-    color: white; font-size: 22px; font-weight: 400;
-    line-height: 1.2;
-  }
-  header p { color: #94A3B8; font-size: 13px; margin-top: 2px; }
+  /* ── Intro ── */
+  .intro{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:20px 26px;margin-bottom:28px;box-shadow:var(--shadow);font-size:13.5px;color:var(--muted)}
+  .intro strong{color:var(--text)}
 
-  /* ── Layout ─────────────────────────────────────────────────── */
-  .page { max-width: 1160px; margin: 0 auto; padding: 40px 24px 80px; }
+  /* ── Top-level collapsible panels ── */
+  .panel{background:#fff;border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden}
 
-  .intro {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: var(--r);
-    padding: 24px 28px;
-    margin-bottom: 32px;
-    box-shadow: var(--shadow);
+  .panel-trigger{
+    width:100%;background:none;border:none;cursor:pointer;
+    padding:18px 24px;
+    display:flex;align-items:center;gap:12px;
+    font-family:'DM Sans',sans-serif;
+    transition:background .15s;
   }
-  .intro p { color: var(--muted); font-size: 14px; max-width: 720px; }
-  .intro strong { color: var(--text); }
+  .panel-trigger:hover{background:#F8FAFC}
 
-  /* ── Section label ──────────────────────────────────────────── */
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 12px;
-    margin-top: 32px;
-  }
+  .panel-trigger .badge{font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:20px;text-transform:uppercase;flex-shrink:0}
+  .badge-current{background:#F1F5F9;color:var(--muted)}
+  .badge-new{background:var(--navy);color:#fff}
+  .badge-calc{background:#1A3A8F;color:#fff}
 
-  /* ── Two-col grid ───────────────────────────────────────────── */
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  @media (max-width: 800px) { .grid-2 { grid-template-columns: 1fr; } }
+  .panel-title{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;color:var(--text);text-align:left;flex:1}
+  .panel-hint{font-size:12px;color:var(--muted);margin-left:auto;flex-shrink:0;margin-right:8px}
 
-  /* ── Cards ──────────────────────────────────────────────────── */
-  .card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: var(--r);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-  .card-header {
-    padding: 16px 22px 14px;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .card-header .badge {
-    font-size: 11px; font-weight: 600; letter-spacing: .04em;
-    padding: 3px 9px; border-radius: 20px;
-    text-transform: uppercase;
-  }
-  .badge-current { background: #F1F5F9; color: var(--muted); }
-  .badge-new     { background: var(--navy); color: white; }
-  .badge-promo   { background: var(--gold-light); color: var(--amber); }
+  .chevron{font-size:18px;color:var(--muted);flex-shrink:0;transition:transform .25s ease;line-height:1;user-select:none}
+  .chevron.open{transform:rotate(180deg)}
 
-  .card-header h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 17px; font-weight: 400; color: var(--text);
-  }
-  .card-body { padding: 20px 22px; }
+  .panel-body{overflow:hidden;transition:height .3s ease;border-top:1px solid var(--border)}
 
-  /* ── Field rows ─────────────────────────────────────────────── */
-  .field-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 10px 0;
-    border-bottom: 1px solid #F1F5F9;
-  }
-  .field-row:last-child { border-bottom: none; padding-bottom: 0; }
-  .field-row:first-child { padding-top: 0; }
+  /* ── Two-col grid inside panel-body ── */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  @media(max-width:800px){.grid-2{grid-template-columns:1fr}}
+  .grid-2 .col{padding:20px 26px}
+  .grid-2 .col+.col{border-left:1px solid var(--border)}
 
-  .field-label {
-    font-size: 13.5px;
-    color: var(--text);
-    font-weight: 500;
-    flex: 1;
-    min-width: 0;
-  }
-  .field-sub {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 400;
-    display: block;
-    margin-top: 1px;
-  }
+  /* ── Sub-section dividers (non-collapsible) ── */
+  .sub-head{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:16px 0 8px;border-bottom:1px solid var(--border);margin-bottom:4px}
+  .sub-head:first-child{padding-top:0}
 
-  .input-wrap {
-    position: relative;
-    flex-shrink: 0;
-    width: 110px;
-  }
-  .input-wrap .currency {
-    position: absolute;
-    left: 10px; top: 50%;
-    transform: translateY(-50%);
-    font-size: 13px;
-    color: var(--muted);
-    pointer-events: none;
-    font-weight: 500;
-  }
-  .input-wrap input {
-    width: 100%;
-    padding: 8px 10px 8px 28px;
-    border: 1.5px solid var(--border);
-    border-radius: 7px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-    background: var(--off);
-    transition: border-color .15s, box-shadow .15s;
-    text-align: right;
-  }
-  .input-wrap input:focus {
-    outline: none;
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(26,58,143,.10);
-    background: white;
-  }
+  /* ── Field rows ── */
+  .field-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid #F1F5F9}
+  .field-row:last-child{border-bottom:none;padding-bottom:4px}
+  .field-label{font-size:13.5px;color:var(--text);font-weight:500;flex:1;min-width:0}
+  .field-sub{font-size:12px;color:var(--muted);font-weight:400;display:block;margin-top:1px}
+  .input-wrap{position:relative;flex-shrink:0;width:110px}
+  .input-wrap .cur{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);pointer-events:none;font-weight:500}
+  .input-wrap input{width:100%;padding:8px 10px 8px 28px;border:1.5px solid var(--border);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);background:var(--off);transition:border-color .15s,box-shadow .15s;text-align:right}
+  .input-wrap input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,58,143,.10);background:#fff}
 
-  /* ── Divider ────────────────────────────────────────────────── */
-  .sub-divider {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .06em;
-    padding: 14px 0 4px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 4px;
-  }
+  /* ── Calculator panel body ── */
+  .calc-body{padding:24px 26px}
 
-  /* ── Results ────────────────────────────────────────────────── */
-  #results {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: var(--r);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    margin-top: 32px;
-  }
-  .results-header {
-    background: var(--navy);
-    padding: 18px 28px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .results-header h2 {
-    font-family: 'DM Serif Display', serif;
-    color: white; font-size: 20px; font-weight: 400;
-  }
-  .results-header p { color: #94A3B8; font-size: 13px; }
+  .scenario-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .stab{padding:6px 16px;border-radius:30px;border:1.5px solid var(--border);font-size:13px;font-weight:500;cursor:pointer;background:#fff;color:var(--muted);transition:all .15s;font-family:'DM Sans',sans-serif}
+  .stab:hover{border-color:var(--blue);color:var(--blue)}
+  .stab.active{background:var(--navy);border-color:var(--navy);color:#fff}
 
-  .results-body { padding: 28px; }
+  .scenario-inputs{background:var(--off);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:22px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+  .si-field label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:4px}
+  .si-field input{width:100%;padding:7px 12px;border:1.5px solid var(--border);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);background:#fff;transition:border-color .15s}
+  .si-field input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,58,143,.10)}
 
-  /* ── Scenario chips ─────────────────────────────────────────── */
-  .scenario-tabs {
-    display: flex; gap: 10px; flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
-  .scenario-tab {
-    padding: 7px 16px;
-    border-radius: 30px;
-    border: 1.5px solid var(--border);
-    font-size: 13px; font-weight: 500;
-    cursor: pointer;
-    background: white;
-    color: var(--muted);
-    transition: all .15s;
-  }
-  .scenario-tab:hover { border-color: var(--blue); color: var(--blue); }
-  .scenario-tab.active {
-    background: var(--navy);
-    border-color: var(--navy);
-    color: white;
-  }
+  .comp-table{width:100%;border-collapse:collapse;font-size:14px}
+  .comp-table th{text-align:left;padding:10px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-bottom:2px solid var(--border);background:var(--off)}
+  .comp-table th:not(:first-child){text-align:right}
+  .comp-table td{padding:12px 14px;border-bottom:1px solid #F1F5F9;vertical-align:top}
+  .comp-table td:not(:first-child){text-align:right;font-weight:500}
+  .comp-table tr:last-child td{border-bottom:none}
+  .comp-table .row-total td{font-weight:600;background:var(--off);border-top:2px solid var(--border);font-size:15px}
+  .val-c{color:var(--muted)} .val-n{color:var(--navy)}
+  .val-d.pos{color:var(--green)} .val-d.neg{color:var(--red)} .val-d.neu{color:var(--muted)}
 
-  /* ── Scenario inputs ────────────────────────────────────────── */
-  .scenario-inputs {
-    background: var(--off);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 18px 20px;
-    margin-bottom: 24px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
-  }
-  .si-field label {
-    font-size: 12px; font-weight: 600; color: var(--muted);
-    text-transform: uppercase; letter-spacing: .05em;
-    display: block; margin-bottom: 5px;
-  }
-  .si-field input {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1.5px solid var(--border);
-    border-radius: 7px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px; font-weight: 500;
-    color: var(--text); background: white;
-    transition: border-color .15s;
-  }
-  .si-field input:focus {
-    outline: none;
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(26,58,143,.10);
-  }
+  .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+  @media(max-width:700px){.summary-grid{grid-template-columns:1fr}}
+  .sc{border-radius:8px;padding:16px 18px;border:1px solid transparent}
+  .sc.neutral{background:var(--blue-bg);border-color:#BFDBFE}
+  .sc.positive{background:var(--green-bg);border-color:#86EFAC}
+  .sc.warning{background:var(--amber-bg);border-color:#FCD34D}
+  .sc-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:5px}
+  .sc-value{font-family:'DM Serif Display',serif;font-size:26px;color:var(--navy);line-height:1}
+  .sc-sub{font-size:12px;color:var(--muted);margin-top:4px}
 
-  /* ── Comparison table ───────────────────────────────────────── */
-  .comp-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  .comp-table th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 11px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: .06em;
-    color: var(--muted);
-    border-bottom: 2px solid var(--border);
-    background: var(--off);
-  }
-  .comp-table th:not(:first-child) { text-align: right; }
-  .comp-table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid #F1F5F9;
-    vertical-align: top;
-  }
-  .comp-table td:not(:first-child) { text-align: right; font-weight: 500; }
-  .comp-table tr:last-child td { border-bottom: none; }
-  .comp-table .row-total td {
-    font-weight: 600;
-    background: var(--off);
-    border-top: 2px solid var(--border);
-    font-size: 15px;
-  }
+  .note{font-size:12.5px;color:var(--muted);margin-top:18px;padding:12px 16px;background:var(--off);border-radius:8px;border-left:3px solid var(--border)}
+  .note strong{color:var(--text)}
 
-  .val-current { color: var(--muted); }
-  .val-new     { color: var(--navy); }
-  .val-diff.pos { color: var(--green); }
-  .val-diff.neg { color: var(--red); }
-  .val-diff.neu { color: var(--muted); }
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:40px;padding-top:20px;border-top:1px solid var(--border)}
 
-  /* ── Summary cards ──────────────────────────────────────────── */
-  .summary-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 24px;
-  }
-  @media (max-width: 700px) { .summary-grid { grid-template-columns: 1fr; } }
-
-  .summary-card {
-    border-radius: 8px;
-    padding: 18px 20px;
-    border: 1px solid transparent;
-  }
-  .summary-card.neutral { background: var(--blue-bg); border-color: #BFDBFE; }
-  .summary-card.positive { background: var(--green-bg); border-color: #86EFAC; }
-  .summary-card.warning  { background: var(--amber-bg); border-color: #FCD34D; }
-
-  .summary-card .sc-label {
-    font-size: 11px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: .06em;
-    color: var(--muted); margin-bottom: 6px;
-  }
-  .summary-card .sc-value {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px; color: var(--navy);
-    line-height: 1;
-  }
-  .summary-card .sc-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
-
-  /* ── Notes ──────────────────────────────────────────────────── */
-  .note {
-    font-size: 12.5px;
-    color: var(--muted);
-    margin-top: 20px;
-    padding: 14px 18px;
-    background: var(--off);
-    border-radius: 8px;
-    border-left: 3px solid var(--border);
-  }
-  .note strong { color: var(--text); }
-
-  /* ── Footer ─────────────────────────────────────────────────── */
-  .page-footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-  }
-
-  /* Animate on load */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .card, #results, .intro {
-    animation: fadeUp .3s ease both;
-  }
-  .card:nth-child(2) { animation-delay: .06s; }
-  #results           { animation-delay: .12s; }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .panel{animation:fadeUp .3s ease both}
+  .panel:nth-child(2){animation-delay:.05s}
+  .panel:nth-child(3){animation-delay:.1s}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-mark">太</div>
+  <div class="logo">太</div>
   <div>
     <h1>Swiss Taekwondo — Fee Structure</h1>
-    <p>Interactive comparison calculator for the 2026/2027 restructuring</p>
+    <p>Interactive comparison calculator · 2026/2027 restructuring</p>
   </div>
 </header>
 
 <div class="page">
 
   <div class="intro">
-    <p><strong>How to use:</strong> Adjust any fee in the panels below. The comparison table updates instantly. Use the scenario tool to model the revenue impact for different club sizes and membership mixes. All amounts in CHF.</p>
+    <strong>How to use:</strong> Click any section header to expand or collapse it. Edit any fee value — the revenue table updates instantly. All amounts in CHF.
   </div>
 
-  <!-- ── FEE INPUTS ─────────────────────────────────────────── -->
-  <div class="section-label">Fee Parameters</div>
-  <div class="grid-2">
+  <!-- ══ PANEL 1: Fee Parameters ══════════════════════════════ -->
+  <div class="panel">
+    <button class="panel-trigger" onclick="togglePanel(this)">
+      <span class="badge badge-current">Current</span>
+      <span class="badge badge-new">New 2027</span>
+      <span class="panel-title">Fee Parameters</span>
+      <span class="panel-hint">Click to collapse</span>
+      <span class="chevron open">▾</span>
+    </button>
+    <div class="panel-body">
+      <div class="grid-2">
 
-    <!-- Current Structure -->
-    <div class="card">
-      <div class="card-header">
-        <span class="badge badge-current">Current</span>
-        <h2>Existing Fee Structure</h2>
-      </div>
-      <div class="card-body">
+        <!-- LEFT: Current -->
+        <div class="col">
+          <div class="sub-head">Club Fees</div>
+          <div class="field-row">
+            <div class="field-label">Annual club fee<span class="field-sub">Flat rate, all clubs</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="c_club" value="400" min="0" step="10"></div>
+          </div>
 
-        <div class="sub-divider">Club Fees</div>
-        <div class="field-row">
-          <div class="field-label">Annual club fee<span class="field-sub">Flat rate, all clubs</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="c_club" value="400" min="0" step="10"></div>
-        </div>
+          <div class="sub-head">Member Fees</div>
+          <div class="field-row">
+            <div class="field-label">Annual membership<span class="field-sub">Per member (8th Kup+)</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="c_member" value="50" min="0" step="5"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">One-time setup fee<span class="field-sub">First registration only</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="c_setup" value="20" min="0" step="5"></div>
+          </div>
 
-        <div class="sub-divider">Member Fees</div>
-        <div class="field-row">
-          <div class="field-label">Annual membership fee<span class="field-sub">Per registered member (8th Kup+)</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="c_member" value="50" min="0" step="5"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">One-time setup fee<span class="field-sub">First registration only</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="c_setup" value="20" min="0" step="5"></div>
-        </div>
-
-        <div class="sub-divider">Belt Promotion Fees (Swiss Taekwondo share)</div>
-        <div class="field-row">
-          <div class="field-label">9th – 7th Kup<span class="field-sub">Beginner colour belt</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="c_prom1" value="10" min="0" step="1"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">6th – 5th Kup<span class="field-sub">Intermediate colour belt</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="c_prom2" value="15" min="0" step="1"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">4th – 1st Kup<span class="field-sub">Advanced colour belt</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="c_prom3" value="15" min="0" step="1"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">1st Dan and above<span class="field-sub">Black belt</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="c_prom4" value="30" min="0" step="5"></div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- New Structure -->
-    <div class="card" style="animation-delay:.06s">
-      <div class="card-header">
-        <span class="badge badge-new">New 2027</span>
-        <h2>Proposed Fee Structure</h2>
-      </div>
-      <div class="card-body">
-
-        <div class="sub-divider">Club Fees (size-scaled)</div>
-        <div class="field-row">
-          <div class="field-label">Small club annual fee<span class="field-sub">Under 50 registered members</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_club_s" value="250" min="0" step="10"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Medium club annual fee<span class="field-sub">50–150 members</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_club_m" value="400" min="0" step="10"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Large club annual fee<span class="field-sub">Over 150 members</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_club_l" value="550" min="0" step="10"></div>
+          <div class="sub-head">Belt Promotion Fees (STKD share)</div>
+          <div class="field-row">
+            <div class="field-label">Moo Keup (9th Kup)<span class="field-sub">White belt — first grading</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="c_prom0" value="10" min="0" step="1"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">8th – 7th Kup<span class="field-sub">Beginner colour belt</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="c_prom1" value="10" min="0" step="1"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">6th – 5th Kup<span class="field-sub">Intermediate colour belt</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="c_prom2" value="15" min="0" step="1"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">4th – 1st Kup<span class="field-sub">Advanced colour belt</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="c_prom3" value="15" min="0" step="1"></div>
+          </div>
         </div>
 
-        <div class="sub-divider">B-License (recreational)</div>
-        <div class="field-row">
-          <div class="field-label">Under 6 years<span class="field-sub">Official member, free</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_b_u6" value="0" min="0" step="1"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Junior B-License<span class="field-sub">Age 6–12</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_b_612" value="15" min="0" step="5"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Standard B-License<span class="field-sub">Age 13+</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_b_13" value="25" min="0" step="5"></div>
+        <!-- RIGHT: New -->
+        <div class="col">
+          <div class="sub-head">Club Fees (size-scaled)</div>
+          <div class="field-row">
+            <div class="field-label">Small club fee<span class="field-sub">Under 50 registered members</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_club_s" value="250" min="0" step="10"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Medium club fee<span class="field-sub">50–150 members</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_club_m" value="400" min="0" step="10"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Large club fee<span class="field-sub">Over 150 members</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_club_l" value="550" min="0" step="10"></div>
+          </div>
+
+          <div class="sub-head">B-License — Recreational</div>
+          <div class="field-row">
+            <div class="field-label">Under 6 years<span class="field-sub">Official member, no fee</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_b_u6" value="0" min="0" step="1"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Junior B-License<span class="field-sub">Age 6–12</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_b_612" value="15" min="0" step="5"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Standard B-License<span class="field-sub">Age 13+</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_b_13" value="25" min="0" step="5"></div>
+          </div>
+
+          <div class="sub-head">A-License — Competition</div>
+          <div class="field-row">
+            <div class="field-label">A-License<span class="field-sub">All ages — replaces B-License</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_a" value="45" min="0" step="5"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Setup fee<span class="field-sub">First registration (0 = abolished)</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_setup" value="0" min="0" step="5"></div>
+          </div>
+
+          <div class="sub-head">Belt Promotion Fees (STKD share)</div>
+          <div class="field-row">
+            <div class="field-label">Moo Keup (9th Kup)<span class="field-sub">White belt — first grading</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_prom0" value="12" min="0" step="1"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">8th – 7th Kup<span class="field-sub">Beginner colour belt</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_prom1" value="14" min="0" step="1"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">6th – 5th Kup<span class="field-sub">Intermediate colour belt</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_prom2" value="20" min="0" step="1"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">4th – 1st Kup<span class="field-sub">Advanced colour belt</span></div>
+            <div class="input-wrap"><span class="cur">CHF</span><input type="number" id="n_prom3" value="20" min="0" step="1"></div>
+          </div>
         </div>
 
-        <div class="sub-divider">A-License (competition)</div>
-        <div class="field-row">
-          <div class="field-label">A-License<span class="field-sub">All ages — replaces B-License</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_a" value="45" min="0" step="5"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Setup fee<span class="field-sub">First registration</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_setup" value="0" min="0" step="5"></div>
+      </div><!-- /grid-2 -->
+    </div><!-- /panel-body -->
+  </div><!-- /panel -->
+
+  <!-- ══ PANEL 2: Revenue Calculator ══════════════════════════ -->
+  <div class="panel">
+    <button class="panel-trigger" onclick="togglePanel(this)">
+      <span class="badge badge-calc">Calculator</span>
+      <span class="panel-title">Revenue Impact Calculator</span>
+      <span class="panel-hint">Click to collapse</span>
+      <span class="chevron open">▾</span>
+    </button>
+    <div class="panel-body">
+      <div class="calc-body">
+
+        <div class="scenario-tabs">
+          <button class="stab active" onclick="setScenario('flat',this)">Flat (same base)</button>
+          <button class="stab" onclick="setScenario('growth',this)">Growth +60%</button>
+          <button class="stab" onclick="setScenario('custom',this)">Custom</button>
         </div>
 
-        <div class="sub-divider">Belt Promotion Fees (Swiss Taekwondo share)</div>
-        <div class="field-row">
-          <div class="field-label">9th – 7th Kup<span class="field-sub">Beginner colour belt</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_prom1" value="14" min="0" step="1"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">6th – 5th Kup<span class="field-sub">Intermediate colour belt</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_prom2" value="20" min="0" step="1"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">4th – 1st Kup<span class="field-sub">Advanced colour belt</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_prom3" value="20" min="0" step="1"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">1st Dan and above<span class="field-sub">Black belt</span></div>
-          <div class="input-wrap"><span class="currency">CHF</span><input type="number" id="n_prom4" value="40" min="0" step="5"></div>
+        <div class="scenario-inputs">
+          <div class="si-field"><label>Number of clubs</label><input type="number" id="s_clubs" value="55" min="1" oninput="recalc()"></div>
+          <div class="si-field"><label>Small clubs (%)</label><input type="number" id="s_pct_small" value="60" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field"><label>Medium clubs (%)</label><input type="number" id="s_pct_med" value="35" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field"><label>Current members</label><input type="number" id="s_cur_members" value="2000" min="0" oninput="recalc()"></div>
+          <div class="si-field"><label>New total members</label><input type="number" id="s_new_members" value="2000" min="0" oninput="recalc()"></div>
+          <div class="si-field"><label>A-License holders (%)</label><input type="number" id="s_pct_a" value="50" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field"><label>Under-6 members (%)</label><input type="number" id="s_pct_u6" value="8" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field"><label>Junior B (6–12) (%)</label><input type="number" id="s_pct_612" value="30" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field"><label>Promotions / member / yr</label><input type="number" id="s_promos" value="1.2" min="0" step="0.1" oninput="recalc()"></div>
+          <div class="si-field"><label>% promos Moo Keup</label><input type="number" id="s_p_moo" value="15" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field"><label>% promos 8th–7th Kup</label><input type="number" id="s_p_beg" value="35" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field"><label>% promos 6th–5th Kup</label><input type="number" id="s_p_int" value="30" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field"><label>New members / yr (setup)</label><input type="number" id="s_new_yr" value="300" min="0" oninput="recalc()"></div>
         </div>
 
       </div>
     </div>
   </div>
 
-  <!-- ── RESULTS ────────────────────────────────────────────── -->
-  <div id="results">
-    <div class="results-header">
-      <div>
-        <h2>Revenue Impact Calculator</h2>
-        <p>Model the financial effect of the new structure for your federation</p>
-      </div>
+  <!-- ══ RESULTS — always visible ════════════════════════════ -->
+  <div class="panel" style="animation-delay:.15s">
+    <div style="padding:18px 24px 6px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px">
+      <span class="badge badge-calc">Results</span>
+      <span style="font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;color:var(--text)">Revenue Comparison</span>
     </div>
-    <div class="results-body">
+    <div style="padding:24px 26px">
 
-      <!-- Scenario selector -->
-      <div class="scenario-tabs">
-        <button class="scenario-tab active" onclick="setScenario('flat')">Flat (same base)</button>
-        <button class="scenario-tab" onclick="setScenario('growth')">Growth +60%</button>
-        <button class="scenario-tab" onclick="setScenario('custom')">Custom</button>
-      </div>
-
-      <!-- Scenario inputs -->
-      <div class="scenario-inputs">
-        <div class="si-field">
-          <label>Number of clubs</label>
-          <input type="number" id="s_clubs" value="55" min="1" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>Small clubs (%)</label>
-          <input type="number" id="s_pct_small" value="60" min="0" max="100" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>Medium clubs (%)</label>
-          <input type="number" id="s_pct_med" value="35" min="0" max="100" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>Current members</label>
-          <input type="number" id="s_cur_members" value="2000" min="0" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>New total members</label>
-          <input type="number" id="s_new_members" value="2000" min="0" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>A-License holders (%)</label>
-          <input type="number" id="s_pct_a" value="50" min="0" max="100" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>Under-6 members (%)</label>
-          <input type="number" id="s_pct_u6" value="8" min="0" max="100" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>Junior B (6–12) (%)</label>
-          <input type="number" id="s_pct_612" value="30" min="0" max="100" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>Promotions / member / yr</label>
-          <input type="number" id="s_promos" value="1.2" min="0" step="0.1" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>% promotions beginner</label>
-          <input type="number" id="s_p_beg" value="50" min="0" max="100" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>% promotions intermediate</label>
-          <input type="number" id="s_p_int" value="30" min="0" max="100" oninput="recalc()">
-        </div>
-        <div class="si-field">
-          <label>New members / yr (setup fee)</label>
-          <input type="number" id="s_new_yr" value="300" min="0" oninput="recalc()">
-        </div>
-      </div>
-
-      <!-- Comparison table -->
       <table class="comp-table">
         <thead>
           <tr>
@@ -586,162 +306,127 @@
       <div class="summary-grid" id="summary-grid"></div>
 
       <div class="note">
-        <strong>Note:</strong> Promotion fee revenue uses the Swiss Taekwondo share only. Club portions are excluded. Belt distribution split: beginner / intermediate / advanced / dan based on the percentages above; the remainder falls in advanced colour belt. Large clubs = 100% − small% − medium%.
+        <strong>Note:</strong> Promotion revenue = STKD share only. Remainder after Moo Keup / 8th–7th / 6th–5th goes to 4th–1st Kup. Large clubs = 100% − small% − medium%.
       </div>
 
     </div>
   </div>
 
-  <div class="page-footer">
-    Swiss Taekwondo · Fee Structure Calculator · Internal planning tool 2026
-  </div>
+  <footer>Swiss Taekwondo · Fee Structure Calculator · Internal planning tool 2026</footer>
 </div>
 
 <script>
-// ── helpers ────────────────────────────────────────────────────
-const v = id => parseFloat(document.getElementById(id).value) || 0;
+// ── Panel toggle ───────────────────────────────────────────────
+function togglePanel(btn) {
+  const chevron = btn.querySelector('.chevron');
+  const hint    = btn.querySelector('.panel-hint');
+  const body    = btn.nextElementSibling;
+  const isOpen  = body.style.height !== '0px' && body.style.height !== '';
+
+  if (isOpen) {
+    body.style.height = body.scrollHeight + 'px';
+    body.offsetHeight;
+    body.style.height = '0px';
+    chevron.classList.remove('open');
+    hint.textContent = 'Click to expand';
+  } else {
+    body.style.height = '0px';
+    body.offsetHeight;
+    body.style.height = body.scrollHeight + 'px';
+    chevron.classList.add('open');
+    hint.textContent = 'Click to collapse';
+    body.addEventListener('transitionend', function once() {
+      body.style.height = 'auto';
+      body.removeEventListener('transitionend', once);
+    });
+  }
+}
+
+// Init all panels open
+document.querySelectorAll('.panel-body').forEach(body => {
+  body.style.height = 'auto';
+});
+
+// ── Helpers ────────────────────────────────────────────────────
+const v   = id => parseFloat(document.getElementById(id).value) || 0;
 const pct = id => v(id) / 100;
-const fmt = n => n.toLocaleString('de-CH', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+const fmt = n  => n.toLocaleString('de-CH', {minimumFractionDigits:0, maximumFractionDigits:0});
+const dc  = d  => Math.abs(d) < 0.5 ? 'neu' : d > 0 ? 'pos' : 'neg';
+const ds  = d  => Math.abs(d) < 0.5 ? '—' : (d>0?'+':'')+'CHF '+fmt(d);
 
-function diffClass(d) {
-  if (Math.abs(d) < 0.5) return 'neu';
-  return d > 0 ? 'pos' : 'neg';
-}
-function diffSign(d) {
-  if (Math.abs(d) < 0.5) return '—';
-  return (d > 0 ? '+' : '') + 'CHF ' + fmt(d);
-}
-
-// ── recalc ─────────────────────────────────────────────────────
+// ── Recalc ─────────────────────────────────────────────────────
 function recalc() {
-  // ── Read all inputs ──
-  const cClub    = v('c_club');
-  const cMember  = v('c_member');
-  const cSetup   = v('c_setup');
-  const cProm    = [v('c_prom1'), v('c_prom2'), v('c_prom3'), v('c_prom4')];
+  const cProm  = [v('c_prom0'),v('c_prom1'),v('c_prom2'),v('c_prom3')];
+  const nProm  = [v('n_prom0'),v('n_prom1'),v('n_prom2'),v('n_prom3')];
+  const clubs  = v('s_clubs');
+  const pSm    = pct('s_pct_small'), pMd = pct('s_pct_med'), pLg = Math.max(0,1-pSm-pMd);
+  const curMem = v('s_cur_members'), newMem = v('s_new_members');
+  const pA     = pct('s_pct_a'), pU6 = pct('s_pct_u6'), p612 = pct('s_pct_612');
+  const ppM    = v('s_promos');
+  const pMoo   = pct('s_p_moo'), pBeg = pct('s_p_beg'), pInt = pct('s_p_int');
+  const pAdv   = Math.max(0,1-pMoo-pBeg-pInt);
+  const newYr  = v('s_new_yr');
 
-  const nClubS   = v('n_club_s');
-  const nClubM   = v('n_club_m');
-  const nClubL   = v('n_club_l');
-  const nBU6     = v('n_b_u6');
-  const nB612    = v('n_b_612');
-  const nB13     = v('n_b_13');
-  const nA       = v('n_a');
-  const nSetup   = v('n_setup');
-  const nProm    = [v('n_prom1'), v('n_prom2'), v('n_prom3'), v('n_prom4')];
+  const avgC = pMoo*cProm[0]+pBeg*cProm[1]+pInt*cProm[2]+pAdv*cProm[3];
+  const avgN = pMoo*nProm[0]+pBeg*nProm[1]+pInt*nProm[2]+pAdv*nProm[3];
 
-  const clubs    = v('s_clubs');
-  const pSmall   = pct('s_pct_small');
-  const pMed     = pct('s_pct_med');
-  const pLarge   = Math.max(0, 1 - pSmall - pMed);
-  const curMem   = v('s_cur_members');
-  const newMem   = v('s_new_members');
-  const pA       = pct('s_pct_a');
-  const pU6      = pct('s_pct_u6');
-  const p612     = pct('s_pct_612');
-  const promosPM = v('s_promos');
-  const pBeg     = pct('s_p_beg');
-  const pInt     = pct('s_p_int');
-  const pAdv     = Math.max(0, 1 - pBeg - pInt) * 0.7;
-  const pDan     = Math.max(0, 1 - pBeg - pInt) * 0.3;
-  const newYr    = v('s_new_yr');
-
-  // ── CURRENT revenue ──
-  const cur_clubs   = clubs * cClub;
-  const cur_members = curMem * cMember;
-  const cur_setup   = newYr * cSetup;
-  const totalPromosCur = curMem * promosPM;
-  const cur_prom    = totalPromosCur * (pBeg*cProm[0] + pInt*cProm[1] + pAdv*cProm[2] + pDan*cProm[3]);
+  const cur_clubs   = clubs * v('c_club');
+  const cur_members = curMem * v('c_member');
+  const cur_setup   = newYr * v('c_setup');
+  const cur_prom    = curMem * ppM * avgC;
   const cur_total   = cur_clubs + cur_members + cur_setup + cur_prom;
 
-  // ── NEW revenue ──
-  const new_clubs   = clubs * (pSmall*nClubS + pMed*nClubM + pLarge*nClubL);
-  const pBMem       = newMem * (1 - pA);
-  const new_b_u6    = pBMem * pU6 * nBU6;
-  const new_b_612   = pBMem * p612 * nB612;
-  const new_b_13    = pBMem * Math.max(0, 1 - pU6 - p612) * nB13;
-  const new_a       = newMem * pA * nA;
-  const new_members = new_b_u6 + new_b_612 + new_b_13 + new_a;
-  const new_setup   = newYr * nSetup;
-  const totalPromosNew = newMem * promosPM;
-  const new_prom    = totalPromosNew * (pBeg*nProm[0] + pInt*nProm[1] + pAdv*nProm[2] + pDan*nProm[3]);
+  const new_clubs   = clubs*(pSm*v('n_club_s')+pMd*v('n_club_m')+pLg*v('n_club_l'));
+  const pBMem       = newMem*(1-pA);
+  const new_members = pBMem*(pU6*v('n_b_u6')+p612*v('n_b_612')+Math.max(0,1-pU6-p612)*v('n_b_13')) + newMem*pA*v('n_a');
+  const new_setup   = newYr * v('n_setup');
+  const new_prom    = newMem * ppM * avgN;
   const new_total   = new_clubs + new_members + new_setup + new_prom;
 
-  // ── Render table ──
   const rows = [
-    { label: 'Club fees', sub: `${clubs} clubs (${Math.round(pSmall*100)}% small / ${Math.round(pMed*100)}% med / ${Math.round(pLarge*100)}% large)`, cur: cur_clubs, nw: new_clubs },
-    { label: 'Member / license fees', sub: `${fmt(curMem)} current → ${fmt(newMem)} new members`, cur: cur_members, nw: new_members },
-    { label: 'Setup / registration fees', sub: `${fmt(newYr)} new members per year`, cur: cur_setup, nw: new_setup },
-    { label: 'Promotion fees (STKD share)', sub: `${promosPM.toFixed(1)} promotions/member/yr`, cur: cur_prom, nw: new_prom },
-    { label: 'TOTAL', sub: '', cur: cur_total, nw: new_total, total: true },
+    {l:'Club fees',          s:`${clubs} clubs · ${Math.round(pSm*100)}% small / ${Math.round(pMd*100)}% med / ${Math.round(pLg*100)}% large`, c:cur_clubs,   n:new_clubs},
+    {l:'Member / license fees', s:`${fmt(curMem)} current → ${fmt(newMem)} projected`,                                                         c:cur_members, n:new_members},
+    {l:'Setup / registration',  s:`${fmt(newYr)} new members per year`,                                                                         c:cur_setup,   n:new_setup},
+    {l:'Promotion fees (STKD)', s:`${ppM.toFixed(1)} promotions/member/yr · avg CHF ${avgC.toFixed(2)} → CHF ${avgN.toFixed(2)}`,               c:cur_prom,    n:new_prom},
+    {l:'TOTAL', s:'', c:cur_total, n:new_total, tot:true},
   ];
 
-  const tbody = document.getElementById('table-body');
-  tbody.innerHTML = rows.map(r => {
-    const diff = r.nw - r.cur;
-    const dc   = diffClass(diff);
-    const tr   = r.total ? ' class="row-total"' : '';
-    const sub  = r.sub ? `<br><span style="font-size:11.5px;color:var(--muted);font-weight:400">${r.sub}</span>` : '';
-    return `<tr${tr}>
-      <td>${r.label}${sub}</td>
-      <td class="val-current">CHF ${fmt(r.cur)}</td>
-      <td class="val-new">CHF ${fmt(r.nw)}</td>
-      <td class="val-diff ${dc}">${diffSign(diff)}</td>
-    </tr>`;
+  document.getElementById('table-body').innerHTML = rows.map(r => {
+    const d = r.n - r.c;
+    const tr = r.tot ? ' class="row-total"' : '';
+    const sub = r.s ? `<br><span style="font-size:11.5px;color:var(--muted);font-weight:400">${r.s}</span>` : '';
+    return `<tr${tr}><td>${r.l}${sub}</td><td class="val-c">CHF ${fmt(r.c)}</td><td class="val-n">CHF ${fmt(r.n)}</td><td class="val-d ${dc(d)}">${ds(d)}</td></tr>`;
   }).join('');
 
-  // ── Summary cards ──
-  const delta = new_total - cur_total;
-  const deltaPct = cur_total > 0 ? (delta / cur_total * 100) : 0;
-  const memGrowth = newMem - curMem;
-
+  const delta = new_total-cur_total, dpct = cur_total>0?(delta/cur_total*100):0, mg = newMem-curMem;
   document.getElementById('summary-grid').innerHTML = `
-    <div class="summary-card ${delta >= 0 ? 'positive' : 'warning'}">
+    <div class="sc ${delta>=0?'positive':'warning'}">
       <div class="sc-label">Revenue change</div>
-      <div class="sc-value">${delta >= 0 ? '+' : ''}${fmt(delta)}</div>
-      <div class="sc-sub">CHF &nbsp;·&nbsp; ${delta >= 0 ? '+' : ''}${deltaPct.toFixed(1)}% vs current</div>
+      <div class="sc-value">${delta>=0?'+':''}${fmt(delta)}</div>
+      <div class="sc-sub">CHF · ${delta>=0?'+':''}${dpct.toFixed(1)}% vs current</div>
     </div>
-    <div class="summary-card neutral">
+    <div class="sc neutral">
       <div class="sc-label">New total revenue</div>
       <div class="sc-value">${fmt(new_total)}</div>
       <div class="sc-sub">CHF per year (estimated)</div>
     </div>
-    <div class="summary-card ${memGrowth >= 0 ? 'positive' : 'warning'}">
+    <div class="sc ${mg>=0?'positive':'warning'}">
       <div class="sc-label">Membership change</div>
-      <div class="sc-value">${memGrowth >= 0 ? '+' : ''}${fmt(memGrowth)}</div>
-      <div class="sc-sub">registered members (${fmt(curMem)} → ${fmt(newMem)})</div>
+      <div class="sc-value">${mg>=0?'+':''}${fmt(mg)}</div>
+      <div class="sc-sub">${fmt(curMem)} → ${fmt(newMem)} registered members</div>
     </div>`;
 }
 
-// ── Scenarios ──────────────────────────────────────────────────
-function setScenario(name) {
-  document.querySelectorAll('.scenario-tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-
-  if (name === 'flat') {
-    set('s_new_members', 2000);
-    set('s_pct_a', 50);
-    set('s_pct_u6', 8);
-    set('s_pct_612', 30);
-  } else if (name === 'growth') {
-    set('s_new_members', 3200);
-    set('s_pct_a', 37);
-    set('s_pct_u6', 10);
-    set('s_pct_612', 35);
-  }
+function setScenario(name, btn) {
+  document.querySelectorAll('.stab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  if (name==='flat')   { s('s_new_members',2000); s('s_pct_a',50); s('s_pct_u6',8);  s('s_pct_612',30); }
+  if (name==='growth') { s('s_new_members',3200); s('s_pct_a',37); s('s_pct_u6',10); s('s_pct_612',35); }
   recalc();
 }
+function s(id,val) { document.getElementById(id).value = val; }
 
-function set(id, val) {
-  document.getElementById(id).value = val;
-}
-
-// ── Wire up all inputs ─────────────────────────────────────────
-document.querySelectorAll('input[type="number"]').forEach(el => {
-  el.addEventListener('input', recalc);
-});
-
-// ── Initial render ─────────────────────────────────────────────
+document.querySelectorAll('input[type="number"]').forEach(el => el.addEventListener('input', recalc));
 recalc();
 </script>
 </body>
