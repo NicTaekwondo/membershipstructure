@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -264,14 +263,41 @@
         </div>
 
         <div class="scenario-inputs">
+          <div class="si-field" style="grid-column:1/-1;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:2px">
+            <label style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Clubs</label>
+          </div>
           <div class="si-field"><label>Number of clubs</label><input type="number" id="s_clubs" value="55" min="1" oninput="recalc()"></div>
           <div class="si-field"><label>Small clubs (%)</label><input type="number" id="s_pct_small" value="60" min="0" max="100" oninput="recalc()"></div>
           <div class="si-field"><label>Medium clubs (%)</label><input type="number" id="s_pct_med" value="35" min="0" max="100" oninput="recalc()"></div>
-          <div class="si-field"><label>Current members</label><input type="number" id="s_cur_members" value="2000" min="0" oninput="recalc()"></div>
+
+          <div class="si-field" style="grid-column:1/-1;border-bottom:1px solid var(--border);padding-bottom:10px;margin-top:6px;margin-bottom:2px">
+            <label style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Members — age distribution (all ages, % of total)</label>
+          </div>
+          <div class="si-field"><label>Current total members</label><input type="number" id="s_cur_members" value="2000" min="0" oninput="recalc()"></div>
           <div class="si-field"><label>New total members</label><input type="number" id="s_new_members" value="2000" min="0" oninput="recalc()"></div>
-          <div class="si-field"><label>A-License holders (%)</label><input type="number" id="s_pct_a" value="50" min="0" max="100" oninput="recalc()"></div>
-          <div class="si-field"><label>Under-6 members (%)</label><input type="number" id="s_pct_u6" value="8" min="0" max="100" oninput="recalc()"></div>
-          <div class="si-field"><label>Junior B (6–12) (%)</label><input type="number" id="s_pct_612" value="30" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field"><label>% aged under 6</label><input type="number" id="s_pct_u6" value="8" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field"><label>% aged 6–12</label><input type="number" id="s_pct_612" value="55" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field" style="position:relative">
+            <label>% aged 13+ <span id="lbl_13p" style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--muted)">(auto)</span></label>
+            <input type="number" id="s_pct_13p" disabled style="background:#F1F5F9;color:var(--muted);cursor:default">
+          </div>
+
+          <div class="si-field" style="grid-column:1/-1;border-bottom:1px solid var(--border);padding-bottom:10px;margin-top:6px;margin-bottom:2px">
+            <label style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em">A-License (competition) — % of all 6+ year olds</label>
+          </div>
+          <div class="si-field"><label>A-License holders (%)</label><input type="number" id="s_pct_a" value="25" min="0" max="100" oninput="recalc()"></div>
+          <div class="si-field" style="position:relative">
+            <label>A-License members <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--muted)">(auto)</span></label>
+            <input type="number" id="s_n_a" disabled style="background:#F1F5F9;color:var(--muted);cursor:default">
+          </div>
+          <div class="si-field" style="position:relative">
+            <label>B-License members <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--muted)">(auto)</span></label>
+            <input type="number" id="s_n_b" disabled style="background:#F1F5F9;color:var(--muted);cursor:default">
+          </div>
+
+          <div class="si-field" style="grid-column:1/-1;border-bottom:1px solid var(--border);padding-bottom:10px;margin-top:6px;margin-bottom:2px">
+            <label style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Promotions &amp; other</label>
+          </div>
           <div class="si-field"><label>Promotions / member / yr</label><input type="number" id="s_promos" value="1.2" min="0" step="0.1" oninput="recalc()"></div>
           <div class="si-field"><label>% promos Moo Keup</label><input type="number" id="s_p_moo" value="15" min="0" max="100" oninput="recalc()"></div>
           <div class="si-field"><label>% promos 8th–7th Kup</label><input type="number" id="s_p_beg" value="35" min="0" max="100" oninput="recalc()"></div>
@@ -306,7 +332,7 @@
       <div class="summary-grid" id="summary-grid"></div>
 
       <div class="note">
-        <strong>Note:</strong> Promotion revenue = STKD share only. Remainder after Moo Keup / 8th–7th / 6th–5th goes to 4th–1st Kup. Large clubs = 100% − small% − medium%.
+        <strong>How the license split works:</strong> Under-6 members are always B-License (free). The A-License % applies to all 6+ members only. A-License holders are distributed proportionally across the 6–12 and 13+ age groups by their share of the 6+ pool. B-License 6–12 and 13+ are the remainder within each age group. Promotion revenue = STKD share only; remainder after Moo Keup / 8th–7th / 6th–5th goes to 4th–1st Kup. Large clubs = 100% − small% − medium%.
       </div>
 
     </div>
@@ -356,49 +382,100 @@ const ds  = d  => Math.abs(d) < 0.5 ? '—' : (d>0?'+':'')+'CHF '+fmt(d);
 
 // ── Recalc ─────────────────────────────────────────────────────
 function recalc() {
-  const cProm  = [v('c_prom0'),v('c_prom1'),v('c_prom2'),v('c_prom3')];
-  const nProm  = [v('n_prom0'),v('n_prom1'),v('n_prom2'),v('n_prom3')];
-  const clubs  = v('s_clubs');
-  const pSm    = pct('s_pct_small'), pMd = pct('s_pct_med'), pLg = Math.max(0,1-pSm-pMd);
-  const curMem = v('s_cur_members'), newMem = v('s_new_members');
-  const pA     = pct('s_pct_a'), pU6 = pct('s_pct_u6'), p612 = pct('s_pct_612');
-  const ppM    = v('s_promos');
-  const pMoo   = pct('s_p_moo'), pBeg = pct('s_p_beg'), pInt = pct('s_p_int');
-  const pAdv   = Math.max(0,1-pMoo-pBeg-pInt);
-  const newYr  = v('s_new_yr');
+  const cProm = [v('c_prom0'),v('c_prom1'),v('c_prom2'),v('c_prom3')];
+  const nProm = [v('n_prom0'),v('n_prom1'),v('n_prom2'),v('n_prom3')];
 
-  const avgC = pMoo*cProm[0]+pBeg*cProm[1]+pInt*cProm[2]+pAdv*cProm[3];
-  const avgN = pMoo*nProm[0]+pBeg*nProm[1]+pInt*nProm[2]+pAdv*nProm[3];
+  // ── Clubs
+  const clubs = v('s_clubs');
+  const pSm   = pct('s_pct_small'), pMd = pct('s_pct_med'), pLg = Math.max(0, 1-pSm-pMd);
 
+  // ── Age distribution (% of ALL members)
+  const curMem = v('s_cur_members');
+  const newMem = v('s_new_members');
+  const pU6    = Math.min(pct('s_pct_u6'), 1);
+  const p612   = Math.min(pct('s_pct_612'), 1 - pU6);
+  const p13p   = Math.max(0, 1 - pU6 - p612);
+
+  // Update derived read-only fields
+  document.getElementById('s_pct_13p').value = Math.round(p13p * 100);
+
+  // ── A-License: % of all 6+ members only (under-6 ineligible)
+  const pA_of_6plus = pct('s_pct_a');  // e.g. 0.25 = 25% of 6+ hold A-License
+  const p6plus      = 1 - pU6;         // fraction of total who are 6+
+  const pA_total    = p6plus * pA_of_6plus;  // A-License as % of ALL members
+  const pB_total    = 1 - pA_total;          // everyone else is B-License
+
+  // ── B-License breakdown:
+  //   Under-6   → always B (free tier)
+  //   6–12 B    → (6–12 pool) minus (A-License share of 6–12 pool)
+  //   13+  B    → (13+ pool)  minus (A-License share of 13+ pool)
+  // A-License is distributed proportionally across 6–12 and 13+ by their share of the 6+ pool
+  const pA_612  = p6plus > 0 ? (p612 / p6plus) * pA_total : 0;  // A from 6–12 age group
+  const pA_13p  = p6plus > 0 ? (p13p / p6plus) * pA_total : 0;  // A from 13+ age group
+  const pB_u6   = pU6;
+  const pB_612  = p612 - pA_612;
+  const pB_13p  = p13p - pA_13p;
+
+  // Derived member counts (new model)
+  const n_u6    = newMem * pB_u6;
+  const n_b612  = newMem * pB_612;
+  const n_b13p  = newMem * pB_13p;
+  const n_a     = newMem * pA_total;
+  const n_b_total = n_u6 + n_b612 + n_b13p;
+
+  // Update derived display fields
+  document.getElementById('s_n_a').value = Math.round(n_a);
+  document.getElementById('s_n_b').value = Math.round(n_b_total);
+
+  // ── Promotions
+  const ppM  = v('s_promos');
+  const pMoo = pct('s_p_moo'), pBeg = pct('s_p_beg'), pInt = pct('s_p_int');
+  const pAdv = Math.max(0, 1 - pMoo - pBeg - pInt);
+  const newYr = v('s_new_yr');
+
+  const avgC = pMoo*cProm[0] + pBeg*cProm[1] + pInt*cProm[2] + pAdv*cProm[3];
+  const avgN = pMoo*nProm[0] + pBeg*nProm[1] + pInt*nProm[2] + pAdv*nProm[3];
+
+  // ── CURRENT revenue
   const cur_clubs   = clubs * v('c_club');
   const cur_members = curMem * v('c_member');
   const cur_setup   = newYr * v('c_setup');
   const cur_prom    = curMem * ppM * avgC;
   const cur_total   = cur_clubs + cur_members + cur_setup + cur_prom;
 
-  const new_clubs   = clubs*(pSm*v('n_club_s')+pMd*v('n_club_m')+pLg*v('n_club_l'));
-  const pBMem       = newMem*(1-pA);
-  const new_members = pBMem*(pU6*v('n_b_u6')+p612*v('n_b_612')+Math.max(0,1-pU6-p612)*v('n_b_13')) + newMem*pA*v('n_a');
+  // ── NEW revenue
+  const new_clubs   = clubs * (pSm*v('n_club_s') + pMd*v('n_club_m') + pLg*v('n_club_l'));
+  const new_members = n_u6*v('n_b_u6') + n_b612*v('n_b_612') + n_b13p*v('n_b_13') + n_a*v('n_a');
   const new_setup   = newYr * v('n_setup');
   const new_prom    = newMem * ppM * avgN;
   const new_total   = new_clubs + new_members + new_setup + new_prom;
 
+  // ── Table
   const rows = [
-    {l:'Club fees',          s:`${clubs} clubs · ${Math.round(pSm*100)}% small / ${Math.round(pMd*100)}% med / ${Math.round(pLg*100)}% large`, c:cur_clubs,   n:new_clubs},
-    {l:'Member / license fees', s:`${fmt(curMem)} current → ${fmt(newMem)} projected`,                                                         c:cur_members, n:new_members},
-    {l:'Setup / registration',  s:`${fmt(newYr)} new members per year`,                                                                         c:cur_setup,   n:new_setup},
-    {l:'Promotion fees (STKD)', s:`${ppM.toFixed(1)} promotions/member/yr · avg CHF ${avgC.toFixed(2)} → CHF ${avgN.toFixed(2)}`,               c:cur_prom,    n:new_prom},
-    {l:'TOTAL', s:'', c:cur_total, n:new_total, tot:true},
+    { l:'Club fees',
+      s:`${clubs} clubs · ${Math.round(pSm*100)}% small / ${Math.round(pMd*100)}% med / ${Math.round(pLg*100)}% large`,
+      c:cur_clubs, n:new_clubs },
+    { l:'Member / license fees',
+      s:`${fmt(curMem)} current → ${fmt(newMem)} projected · B: ${fmt(Math.round(n_b_total))} (incl. ${fmt(Math.round(n_u6))} free u6) · A: ${fmt(Math.round(n_a))}`,
+      c:cur_members, n:new_members },
+    { l:'Setup / registration fees',
+      s:`${fmt(newYr)} new members per year`,
+      c:cur_setup, n:new_setup },
+    { l:'Promotion fees (STKD share)',
+      s:`${ppM.toFixed(1)} promotions/member/yr · avg CHF ${avgC.toFixed(2)} → CHF ${avgN.toFixed(2)}`,
+      c:cur_prom, n:new_prom },
+    { l:'TOTAL', s:'', c:cur_total, n:new_total, tot:true },
   ];
 
   document.getElementById('table-body').innerHTML = rows.map(r => {
     const d = r.n - r.c;
-    const tr = r.tot ? ' class="row-total"' : '';
+    const tr  = r.tot ? ' class="row-total"' : '';
     const sub = r.s ? `<br><span style="font-size:11.5px;color:var(--muted);font-weight:400">${r.s}</span>` : '';
     return `<tr${tr}><td>${r.l}${sub}</td><td class="val-c">CHF ${fmt(r.c)}</td><td class="val-n">CHF ${fmt(r.n)}</td><td class="val-d ${dc(d)}">${ds(d)}</td></tr>`;
   }).join('');
 
-  const delta = new_total-cur_total, dpct = cur_total>0?(delta/cur_total*100):0, mg = newMem-curMem;
+  // ── Summary cards
+  const delta = new_total - cur_total, dpct = cur_total > 0 ? (delta/cur_total*100) : 0, mg = newMem - curMem;
   document.getElementById('summary-grid').innerHTML = `
     <div class="sc ${delta>=0?'positive':'warning'}">
       <div class="sc-label">Revenue change</div>
@@ -420,8 +497,11 @@ function recalc() {
 function setScenario(name, btn) {
   document.querySelectorAll('.stab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  if (name==='flat')   { s('s_new_members',2000); s('s_pct_a',50); s('s_pct_u6',8);  s('s_pct_612',30); }
-  if (name==='growth') { s('s_new_members',3200); s('s_pct_a',37); s('s_pct_u6',10); s('s_pct_612',35); }
+  if (name==='flat') {
+    s('s_new_members',2000); s('s_pct_u6',8); s('s_pct_612',55); s('s_pct_a',25);
+  } else if (name==='growth') {
+    s('s_new_members',3200); s('s_pct_u6',10); s('s_pct_612',55); s('s_pct_a',25);
+  }
   recalc();
 }
 function s(id,val) { document.getElementById(id).value = val; }
